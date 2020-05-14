@@ -408,18 +408,6 @@ MonoBehaviour:
   fadeInTexture: {fileID: 0}
   speedRotationIncrement: 0.05
   layerName: Default
---- !u!114 &716486608 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1579089249}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716486604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &928524839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,7 +474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1140149731}
-  - component: {fileID: 1140149732}
+  - component: {fileID: 1140149733}
   m_Layer: 0
   m_Name: StartMenu
   m_TagString: Untagged
@@ -508,7 +496,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1140149732
+--- !u!114 &1140149733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -517,12 +505,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1140149730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33962741a56c2a643ba07df6c6a1c133, type: 3}
+  m_Script: {fileID: 11500000, guid: 7db88d032a0cb554abeb02e7ec62346d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlay: {fileID: 343815009}
-  text: {fileID: 207201471}
-  vrRig: {fileID: 716486608}
+  overlay: {fileID: 0}
+  text: {fileID: 0}
+  vrRig: {fileID: 0}
 --- !u!1001 &1185634211
 PrefabInstance:
   m_ObjectHideFlags: 0
