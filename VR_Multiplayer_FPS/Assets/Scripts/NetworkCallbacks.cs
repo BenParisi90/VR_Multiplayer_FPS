@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [BoltGlobalBehaviour]
 public class NetworkCallbacks : Bolt.GlobalEventListener
@@ -11,5 +12,10 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
 
         // instantiate cube
         BoltNetwork.Instantiate(BoltPrefabs.Cube, spawnPosition, Quaternion.identity);
+    }
+
+    public override void OnEvent(LogEvent evnt)
+    {
+        Debug.Log(evnt.Message);
     }
 }
