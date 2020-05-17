@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Bolt;
 
 public enum WeaponShootType
 {
@@ -20,7 +21,7 @@ public struct CrosshairData
 }
 
 [RequireComponent(typeof(AudioSource))]
-public class WeaponController : MonoBehaviour
+public class WeaponController : Bolt.EntityEventListener<IBlasterState>
 {
     [Header("Information")]
     [Tooltip("The name that will be displayed in the UI for this weapon")]
@@ -109,6 +110,11 @@ public class WeaponController : MonoBehaviour
     AudioSource m_ShootAudioSource;
 
     const string k_AnimAttackParameter = "Attack";
+
+    public override void Attached()
+    {
+        state.SetTransforms(state.BlasterTransform, transform);
+    }
 
     void Awake()
     {
