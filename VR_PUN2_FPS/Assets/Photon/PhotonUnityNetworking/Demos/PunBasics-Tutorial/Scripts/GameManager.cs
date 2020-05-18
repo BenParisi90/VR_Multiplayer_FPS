@@ -36,9 +36,11 @@ namespace Photon.Pun.Demo.PunBasics
 
 		private GameObject instance;
 
-        [Tooltip("The prefab to use for representing the player")]
-        [SerializeField]
-        private GameObject playerPrefab;
+        public Transform leftHandAnchor;
+		public GameObject leftHandPrefab;
+		public Transform rightHandAnchor;
+		public GameObject rightHandPrefab;
+
 
         #endregion
 
@@ -54,30 +56,31 @@ namespace Photon.Pun.Demo.PunBasics
 			// in case we started this demo with the wrong scene being active, simply load the menu scene
 			if (!PhotonNetwork.IsConnected)
 			{
-				SceneManager.LoadScene("PunBasics-Launcher");
+				SceneManager.LoadScene("StartScene");
 
 				return;
 			}
 
-			if (playerPrefab == null) { // #Tip Never assume public properties of Components are filled up properly, always check and inform the developer of it.
+			GameObject leftHand = PhotonNetwork.Instantiate(this.leftHandPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+			leftHand.transform.position = leftHandAnchor.position;
+			leftHand.transform.Rotate(new Vector3(0,0,90));
+			leftHand.transform.parent = leftHandAnchor;
+			GameObject rightHand = PhotonNetwork.Instantiate(this.rightHandPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+			rightHand.transform.position = rightHandAnchor.position;
+			rightHand.transform.Rotate(new Vector3(0,0,-90));
+			rightHand.transform.parent = rightHandAnchor;
 
-				Debug.LogError("<Color=Red><b>Missing</b></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
-			} else {
+			/*if (PlayerManager.LocalPlayerInstance==null)
+			{
+				Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
+				// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
+				PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
 
-				if (PlayerManager.LocalPlayerInstance==null)
-				{
-				    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
+			}else{
 
-					// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-					PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
-				}else{
-
-					Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
-				}
-
-
-			}
+				Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+			}*/
 
 		}
 

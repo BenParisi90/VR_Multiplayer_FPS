@@ -307,6 +307,87 @@ Transform:
   m_Father: {fileID: 2006368314}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &439374344
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5423500275219541834, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_Name
+      value: OVRCameraRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423500275219837802, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75d789a03ae39014ca98ab6b8319d0b2, type: 3}
+--- !u!4 &439374345 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5423500275219908280, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 439374344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &439374346 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5423500275219919548, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 439374344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &454085259
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +523,24 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 5423500275219541834, guid: 75d789a03ae39014ca98ab6b8319d0b2,
+        type: 3}
+    - target: {fileID: 11476684, guid: b7fe671fa5d4d4772a4b20715fb9b0ff, type: 3}
+      propertyPath: leftHandAnchor
+      value: 
+      objectReference: {fileID: 439374346}
+    - target: {fileID: 11476684, guid: b7fe671fa5d4d4772a4b20715fb9b0ff, type: 3}
+      propertyPath: rightHandAnchor
+      value: 
+      objectReference: {fileID: 439374345}
+    - target: {fileID: 11476684, guid: b7fe671fa5d4d4772a4b20715fb9b0ff, type: 3}
+      propertyPath: leftHandPrefab
+      value: 
+      objectReference: {fileID: 6383245696382552137, guid: c91b5198816887841a4eb66650ddf6dd,
+        type: 3}
+    - target: {fileID: 11476684, guid: b7fe671fa5d4d4772a4b20715fb9b0ff, type: 3}
+      propertyPath: rightHandPrefab
+      value: 
+      objectReference: {fileID: 4847077834820468506, guid: 59701006b72811043a88923d27ca56d4,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7fe671fa5d4d4772a4b20715fb9b0ff, type: 3}
