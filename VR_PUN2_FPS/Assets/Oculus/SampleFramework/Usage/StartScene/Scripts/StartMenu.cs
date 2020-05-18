@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Photon.Pun.Demo.PunBasics;
+
 // Create menu of all scenes included in the build.
 public class StartMenu : MonoBehaviour
 {   
     public OVROverlay overlay;
     public OVROverlay text;
     public OVRCameraRig vrRig;
+    public Launcher launcher;
 
     void Start()
     {
@@ -29,7 +32,8 @@ public class StartMenu : MonoBehaviour
     void LoadScene(int idx)
     {
         DebugUIBuilder.instance.Hide();
-        Debug.Log("Load scene: " + idx);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(idx);
+        //Debug.Log("Load scene: " + idx);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(idx);
+        launcher.Connect();
     }
 }

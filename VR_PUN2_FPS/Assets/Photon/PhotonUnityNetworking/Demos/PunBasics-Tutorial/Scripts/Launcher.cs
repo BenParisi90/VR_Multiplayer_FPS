@@ -25,21 +25,21 @@ namespace Photon.Pun.Demo.PunBasics
 
 		#region Private Serializable Fields
 
-		[Tooltip("The Ui Panel to let the user enter name, connect and play")]
+		/*[Tooltip("The Ui Panel to let the user enter name, connect and play")]
 		[SerializeField]
 		private GameObject controlPanel;
 
 		[Tooltip("The Ui Text to inform the user about the connection progress")]
 		[SerializeField]
-		private Text feedbackText;
+		private Text feedbackText;*/
 
 		[Tooltip("The maximum number of players per room")]
 		[SerializeField]
 		private byte maxPlayersPerRoom = 4;
 
-		[Tooltip("The UI Loader Anime")]
+		/*[Tooltip("The UI Loader Anime")]
 		[SerializeField]
-		private LoaderAnime loaderAnime;
+		private LoaderAnime loaderAnime;*/
 
 		#endregion
 
@@ -65,10 +65,10 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		void Awake()
 		{
-			if (loaderAnime==null)
+			/*if (loaderAnime==null)
 			{
 				Debug.LogError("<Color=Red><b>Missing</b></Color> loaderAnime Reference.",this);
-			}
+			}*/
 
 			// #Critical
 			// this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
@@ -89,19 +89,19 @@ namespace Photon.Pun.Demo.PunBasics
 		public void Connect()
 		{
 			// we want to make sure the log is clear everytime we connect, we might have several failed attempted if connection failed.
-			feedbackText.text = "";
+			//feedbackText.text = "";
 
 			// keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
 			isConnecting = true;
 
 			// hide the Play button for visual consistency
-			controlPanel.SetActive(false);
+			//controlPanel.SetActive(false);
 
 			// start the loader animation for visual effect.
-			if (loaderAnime!=null)
+			/*if (loaderAnime!=null)
 			{
 				loaderAnime.StartLoaderAnimation();
-			}
+			}*/
 
 			// we check if we are connected or not, we join if we are , else we initiate the connection to the server.
 			if (PhotonNetwork.IsConnected)
@@ -126,12 +126,13 @@ namespace Photon.Pun.Demo.PunBasics
 		void LogFeedback(string message)
 		{
 			// we do not assume there is a feedbackText defined.
-			if (feedbackText == null) {
+			/*if (feedbackText == null) {
 				return;
 			}
 
 			// add new messages as a new line and at the bottom of the log.
-			feedbackText.text += System.Environment.NewLine+message;
+			feedbackText.text += System.Environment.NewLine+message;*/
+			Debug.Log(message);
 		}
 
         #endregion
@@ -185,10 +186,10 @@ namespace Photon.Pun.Demo.PunBasics
 			Debug.LogError("PUN Basics Tutorial/Launcher:Disconnected");
 
 			// #Critical: we failed to connect or got disconnected. There is not much we can do. Typically, a UI system should be in place to let the user attemp to connect again.
-			loaderAnime.StopLoaderAnimation();
+			//loaderAnime.StopLoaderAnimation();
 
 			isConnecting = false;
-			controlPanel.SetActive(true);
+			//controlPanel.SetActive(true);
 
 		}
 
@@ -211,11 +212,11 @@ namespace Photon.Pun.Demo.PunBasics
 			// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.AutomaticallySyncScene to sync our instance scene.
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
 			{
-				Debug.Log("We load the 'Room for 1' ");
+				Debug.Log("We load the 'Game Scene' ");
 
 				// #Critical
 				// Load the Room Level. 
-				PhotonNetwork.LoadLevel("PunBasics-Room for 1");
+				PhotonNetwork.LoadLevel("GameScene");
 
 			}
 		}
