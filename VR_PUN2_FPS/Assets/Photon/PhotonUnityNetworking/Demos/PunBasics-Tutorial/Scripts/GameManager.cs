@@ -125,7 +125,7 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				Debug.LogFormat( "OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient ); // called before OnPlayerLeftRoom
 
-				LoadArena(); 
+				//LoadArena(); 
 			}
 		}
 
@@ -164,7 +164,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );
 
-			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+			//PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
 		}
 
 		#endregion
