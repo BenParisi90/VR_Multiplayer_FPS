@@ -70,6 +70,12 @@ namespace Photon.Pun.Demo.PunBasics
 			rightHand.transform.Rotate(new Vector3(0,0,-90));
 			rightHand.transform.parent = rightHandAnchor;
 
+			if ( PhotonNetwork.IsMasterClient )
+			{
+				LoadArena();
+			}
+
+
 			/*if (PlayerManager.LocalPlayerInstance==null)
 			{
 				Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
@@ -108,12 +114,12 @@ namespace Photon.Pun.Demo.PunBasics
 		{
 			Debug.Log( "OnPlayerEnteredRoom() " + other.NickName); // not seen if you're the player connecting
 
-			if ( PhotonNetwork.IsMasterClient )
+			/*if ( PhotonNetwork.IsMasterClient )
 			{
 				Debug.LogFormat( "OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient ); // called before OnPlayerLeftRoom
 
 				LoadArena();
-			}
+			}*/
 		}
 
 		/// <summary>
@@ -160,14 +166,18 @@ namespace Photon.Pun.Demo.PunBasics
 
 		void LoadArena()
 		{
-			if ( ! PhotonNetwork.IsMasterClient )
+			/*f ( ! PhotonNetwork.IsMasterClient )
 			{
 				Debug.LogError( "PhotonNetwork : Trying to Load a level but we are not the master Client" );
 			}
 
-			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );
+			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );*/
 
 			//PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+
+			PhotonNetwork.Instantiate("Target", new Vector3(0, 1, 3), Quaternion.identity);
+			PhotonNetwork.Instantiate("Target", new Vector3(-2, 1, 3), Quaternion.identity);
+			PhotonNetwork.Instantiate("Target", new Vector3(2, 1, 3), Quaternion.identity);
 		}
 
 		#endregion
