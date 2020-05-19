@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using Photon.Pun.Demo.PunBasics;
 
 // Create menu of all scenes included in the build.
-public class StartMenu : MonoBehaviour
+public class CustomStartMenu : MonoBehaviour
 {   
     public OVROverlay overlay;
     public OVROverlay text;
