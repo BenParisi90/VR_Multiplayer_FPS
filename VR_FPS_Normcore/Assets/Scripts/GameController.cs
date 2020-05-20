@@ -10,6 +10,7 @@ public class GameController : RealtimeComponent {
     public List<Transform> positionTransforms;
 
     private Realtime _realtime;
+    public Transform player;
 
     void Awake() {
         _realtime = GetComponent<Realtime>();
@@ -57,5 +58,6 @@ public class GameController : RealtimeComponent {
             return;
 
         Debug.Log("DidConnectToRoom with " + _realtime.clientID);
+        player.position = positionTransforms[_realtime.clientID].position;
     }
 }
