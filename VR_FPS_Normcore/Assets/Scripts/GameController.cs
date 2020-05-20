@@ -6,30 +6,56 @@ using Normal.Realtime;
 public class GameController : RealtimeComponent {
 
     private GameModel _model;
-    public GameObject player;
 
     public List<Transform> positionTransforms;
 
+    private Realtime _realtime;
+
+    void Awake() {
+        _realtime = GetComponent<Realtime>();
+        _realtime.didConnectToRoom += DidConnectToRoom;
+    }
+
+    void Start() {
+        Debug.Log("Start with " + _realtime.clientID);
+    }
+
 
     private GameModel model {
-        set {
+        set 
+        {
             // Store the model
             _model = value;
-            MoveToNextEmptyPosition();
+            Debug.Log("set _model with " + _realtime.clientID);
         }
     }
 
-    public void MoveToNextEmptyPosition() 
+    void Update()
     {
-        if(_model.spot1Player == 0)
+        if(_realtime != null)
         {
-            player.transform.position = positionTransforms[0].position;
-            _model.spot1Player = realtime.clientID;
+            //button for disconnecting
+            if(OVRInput.Get(OVRInput.Button.One) && _realtime.connected)
+            {
+                _realtime.Disconnect();
+            }
+            //if we are not connected, can be connected, automatically do so
+            else if(_realtime.disconnected && !_realtime.connecting)
+            {
+                Debug.Log("Disconnected, reconnecting");
+                _realtime.Connect("Test Room");
+            }
         }
-        else if(_model.spot2Player == 0)
-        {
-            player.transform.position = positionTransforms[1].position;
-            _model.spot2Player = realtime.clientID;
-        }
+    }
+
+    void OnDestroy() {
+        _realtime.didConnectToRoom -= DidConnectToRoom;
+    }
+
+    void DidConnectToRoom(Realtime room) {
+        if (!gameObject.activeInHierarchy || !enabled)
+            return;
+
+        Debug.Log("DidConnectToRoom with " + _realtime.clientID);
     }
 }
