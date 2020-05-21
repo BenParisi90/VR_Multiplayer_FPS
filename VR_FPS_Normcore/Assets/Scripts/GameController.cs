@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
+using Normal.Realtime.Serialization;
 using TMPro;
 
 public class GameController : RealtimeComponent {
@@ -34,7 +35,10 @@ public class GameController : RealtimeComponent {
         {
             if (_model != null) {
                 // Unregister from events
-                _model.scoreDidChange -= ScoreDidChange;
+                foreach(PlayerModel playerModel in _model.players)
+                {
+                    playerModel.scoreDidChange -= ScoreDidChange;
+                }
             }
 
             // Store the model
@@ -44,8 +48,18 @@ public class GameController : RealtimeComponent {
 
             if (_model != null) {
 
+                if(_model.players.Count < 2)
+                {
+                    for(int i = 0; i < 2; i ++)
+                    {
+                        _model.players.Add(new PlayerModel());
+                    }
+                }
+                foreach(PlayerModel playerModel in _model.players)
+                {
+                    playerModel.scoreDidChange += ScoreDidChange;
+                }
                 // Register for events so we'll know if the color changes later
-                _model.scoreDidChange += ScoreDidChange;
             }
         }   
     }
@@ -87,8 +101,9 @@ public class GameController : RealtimeComponent {
         UpdateScoreText();
     }
 
-    void ScoreDidChange(GameModel model, int value)
+    void ScoreDidChange(PlayerModel model, int value)
     {
+        Debug.Log("Score did change");
         UpdateScoreText();
     }
 
@@ -101,12 +116,18 @@ public class GameController : RealtimeComponent {
 
     public void ChangeScore(int amount)
     {
-        _model.score += amount;
-        UpdateScoreText();
+        _model.players[_realtime.clientID].score += amount;
+        Debug.Log("ChangeScore" + _realtime.clientID + ", new score = " + _model.players[_realtime.clientID].score);
     }
 
     void UpdateScoreText()
     {
-        scoreText.text = _model.score.ToString();
+        scoreText.text = "";
+        RealtimeAvatarManager avatarManager = GetComponent<RealtimeAvatarManager>(); 
+        Debug.Log("Update score text");
+        for(int i = 0; i < _model.players.Count; i ++){    
+            Debug.Log("Score: " + i + " - " + _model.players[i].score );
+            scoreText.text += "/" + _model.players[i].score;
+        }
     }
 }
