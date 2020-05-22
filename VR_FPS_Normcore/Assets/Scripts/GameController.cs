@@ -16,7 +16,6 @@ public class GameController : RealtimeComponent {
 
     private Realtime _realtime;
     public Transform player;
-    public GameObject targetPrefab;
 
     public TextMeshPro scoreText;
 
@@ -118,10 +117,10 @@ public class GameController : RealtimeComponent {
     {
         Debug.Log("Score did change " + value);
         UpdateScoreText();
-        if(value == 3)
+        /*if(value == 3)
         {
             SceneManager.LoadScene("Level1");
-        }
+        }*/
     }
 
     void UpdateScoreText()
