@@ -6,9 +6,8 @@ using Normal.Realtime;
 public class TargetController : RealtimeComponent
 {
     //public
-    public void TakeDamage()
+    public virtual void TakeDamage()
     {
-        Debug.Log("Take Damage");
-        GameController.instance.ChangeScore(1);
+        Debug.Log("Take Damage "+ gameObject.name);
     }
 }

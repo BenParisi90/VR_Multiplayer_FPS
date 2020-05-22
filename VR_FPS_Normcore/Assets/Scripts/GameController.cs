@@ -4,6 +4,7 @@ using UnityEngine;
 using Normal.Realtime;
 using Normal.Realtime.Serialization;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : RealtimeComponent {
 
@@ -101,16 +102,9 @@ public class GameController : RealtimeComponent {
         UpdateScoreText();
     }
 
-    void ScoreDidChange(PlayerModel model, int value)
-    {
-        Debug.Log("Score did change");
-        UpdateScoreText();
-    }
-
     void InitializeGame()
     {
         Debug.Log("Initialize Game");
-        GameObject target = Realtime.Instantiate(targetPrefab.name, new Vector3(), Quaternion.identity, false);
         UpdateScoreText();
     }
 
@@ -118,6 +112,16 @@ public class GameController : RealtimeComponent {
     {
         _model.players[_realtime.clientID].score += amount;
         Debug.Log("ChangeScore" + _realtime.clientID + ", new score = " + _model.players[_realtime.clientID].score);
+    }
+
+    void ScoreDidChange(PlayerModel model, int value)
+    {
+        Debug.Log("Score did change " + value);
+        UpdateScoreText();
+        if(value == 3)
+        {
+            SceneManager.LoadScene("Level1");
+        }
     }
 
     void UpdateScoreText()
