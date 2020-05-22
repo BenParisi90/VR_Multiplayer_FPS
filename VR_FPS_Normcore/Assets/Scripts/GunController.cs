@@ -15,7 +15,7 @@ public class GunController : RealtimeComponent
         if(avatarRealtimeTransform.isOwnedLocally && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > .5 && triggerReleased)
         {
             //add a muzzle flash for all players
-            Realtime.Instantiate(muzzleFlashPrefab.name, shootPoint.position, shootPoint.rotation);
+            GameObject bulletTrail = Realtime.Instantiate(muzzleFlashPrefab.name, shootPoint.position, shootPoint.rotation);
             //if the bullet hit something
             RaycastHit hit;
             if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit))
