@@ -160,7 +160,11 @@ MonoBehaviour:
     component: {fileID: 5595629784358429261}
     componentIDHasBeenUsed: 1
   _parentView: {fileID: 7812948301293444581}
-  _childViews: []
+  _childViews:
+  - viewID: 1
+    view: {fileID: 0}
+    viewIDHasBeenUsed: 1
+    viewToUseIfMovedBack: {fileID: 0}
 --- !u!114 &5595629784358429261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +312,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootPoint: {fileID: 2584263683472230839}
+  muzzleFlashPrefab: {fileID: 198719912503724044, guid: 4afd866bbfd006a4191f331751eb92ff,
+    type: 3}
+  avatarRealtimeTransform: {fileID: 4379753424469662081}
 --- !u!114 &3621390127758845279
 MonoBehaviour:
   m_ObjectHideFlags: 0
