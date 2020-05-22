@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6309169710415926618}
   - component: {fileID: 7758251560398170646}
   - component: {fileID: 854692185430651862}
-  - component: {fileID: 8611624057730101938}
   m_Layer: 0
   m_Name: CustomMuzzleFlash
   m_TagString: Untagged
@@ -4912,25 +4911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600f11582f923d1469bec02f0041f948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &8611624057730101938
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782395880954752}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: afbeb5878ef4a3847952cba512b7ea17, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1845643716156742
 GameObject:
   m_ObjectHideFlags: 0
