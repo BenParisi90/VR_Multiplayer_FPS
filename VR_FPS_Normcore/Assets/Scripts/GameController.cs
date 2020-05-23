@@ -18,6 +18,7 @@ public class GameController : RealtimeComponent {
     public Transform player;
 
     public TextMeshPro scoreText;
+    public TextMeshPro levelText;
 
     void Awake() {
         _realtime = GetComponent<Realtime>();
@@ -34,6 +35,7 @@ public class GameController : RealtimeComponent {
         set 
         {
             if (_model != null) {
+                _model.nextSceneDidChange -= NextSceneDidChange;
                 // Unregister from events
                 foreach(PlayerModel playerModel in _model.players)
                 {
@@ -45,8 +47,11 @@ public class GameController : RealtimeComponent {
             _model = value;
 
             Debug.Log("set _model with " + _realtime.clientID);
+            //set the scene name, so that the other clients know to follow the first player in
+            _model.nextScene = SceneManager.GetActiveScene().name;
 
             if (_model != null) {
+                _model.nextSceneDidChange += NextSceneDidChange;
 
                 if(_model.players.Count < 2)
                 {
@@ -80,6 +85,12 @@ public class GameController : RealtimeComponent {
                 _realtime.Connect("Test Room");
             }
         }
+
+        //poll for scene change
+        if(_model.nextScene != "" && _model.nextScene != SceneManager.GetActiveScene().name)
+        {
+            SceneManager.LoadScene(_model.nextScene);
+        }
     }
 
     void OnDestroy() {
@@ -107,6 +118,17 @@ public class GameController : RealtimeComponent {
         UpdateScoreText();
     }
 
+    public void ChangeScene(string newLevel)
+    {
+        _model.nextScene = newLevel;
+    }
+
+    void NextSceneDidChange(GameModel model, string value)
+    {
+        Debug.Log("Next Scene did change " + _model.nextScene);
+        levelText.text = _model.nextScene;
+    }
+
     public void ChangeScore(int amount)
     {
         _model.players[_realtime.clientID].score += amount;
@@ -126,7 +148,7 @@ public class GameController : RealtimeComponent {
     void UpdateScoreText()
     {
         scoreText.text = "";
-        RealtimeAvatarManager avatarManager = GetComponent<RealtimeAvatarManager>(); 
+        //RealtimeAvatarManager avatarManager = GetComponent<RealtimeAvatarManager>(); 
         Debug.Log("Update score text");
         for(int i = 0; i < _model.players.Count; i ++){    
             Debug.Log("Score: " + i + " - " + _model.players[i].score );

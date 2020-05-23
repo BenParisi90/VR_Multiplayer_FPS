@@ -17,6 +17,7 @@ public class LevelSelectTarget : TargetController
     override public void TakeDamage()
     {
         base.TakeDamage();
-        SceneManager.LoadScene(sceneToLoad);
+        //SceneManager.LoadScene(sceneToLoad);
+        GameController.instance.ChangeScene(sceneToLoad);
     }
 }

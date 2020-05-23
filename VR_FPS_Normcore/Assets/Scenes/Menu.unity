@@ -1342,6 +1342,7 @@ MonoBehaviour:
   - {fileID: 1258783869}
   player: {fileID: 2035713557}
   scoreText: {fileID: 574354477}
+  levelText: {fileID: 525658232}
 --- !u!114 &2093836402
 MonoBehaviour:
   m_ObjectHideFlags: 0

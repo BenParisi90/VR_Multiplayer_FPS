@@ -9,7 +9,8 @@ public partial class GameModel
     [RealtimeProperty(1, true, true)]
     private bool _gameInitialized;
 
-    private int _score;
+    [RealtimeProperty(2, true, true)]
+    private string _nextScene = "";
 
     [RealtimeProperty(3, true, true)]
     private RealtimeArray<PlayerModel> _players;
@@ -21,6 +22,10 @@ public partial class GameModel : IModel {
         get { return _cache.LookForValueInCache(_gameInitialized, entry => entry.gameInitializedSet, entry => entry.gameInitialized); }
         set { if (value == gameInitialized) return; _cache.UpdateLocalCache(entry => { entry.gameInitializedSet = true; entry.gameInitialized = value; return entry; }); FireGameInitializedDidChange(value); }
     }
+    public string nextScene {
+        get { return _cache.LookForValueInCache(_nextScene, entry => entry.nextSceneSet, entry => entry.nextScene); }
+        set { if (value == nextScene) return; _cache.UpdateLocalCache(entry => { entry.nextSceneSet = true; entry.nextScene = value; return entry; }); FireNextSceneDidChange(value); }
+    }
     public Normal.Realtime.Serialization.RealtimeArray<PlayerModel> players {
         get { return _players; }
     }
@@ -28,11 +33,15 @@ public partial class GameModel : IModel {
     // Events
     public delegate void GameInitializedDidChange(GameModel model, bool value);
     public event         GameInitializedDidChange gameInitializedDidChange;
+    public delegate void NextSceneDidChange(GameModel model, string value);
+    public event         NextSceneDidChange nextSceneDidChange;
     
     // Delta updates
     private struct LocalCacheEntry {
-        public bool gameInitializedSet;
-        public bool gameInitialized;
+        public bool   gameInitializedSet;
+        public bool   gameInitialized;
+        public bool   nextSceneSet;
+        public string nextScene;
     }
     
     private LocalChangeCache<LocalCacheEntry> _cache;
@@ -52,10 +61,19 @@ public partial class GameModel : IModel {
             Debug.LogException(exception);
         }
     }
+    public void FireNextSceneDidChange(string value) {
+        try {
+            if (nextSceneDidChange != null)
+                nextSceneDidChange(this, value);
+        } catch (System.Exception exception) {
+            Debug.LogException(exception);
+        }
+    }
     
     // Serialization
     enum PropertyID {
         GameInitialized = 1,
+        NextScene = 2,
         Players = 3,
     }
     
@@ -66,10 +84,12 @@ public partial class GameModel : IModel {
             // Mark unreliable properties as clean and flatten the in-flight cache.
             // TODO: Move this out of WriteLength() once we have a prepareToWrite method.
             _gameInitialized = gameInitialized;
+            _nextScene = nextScene;
             _cache.Clear();
             
             // Write all properties
             length += WriteStream.WriteVarint32Length((uint)PropertyID.GameInitialized, _gameInitialized ? 1u : 0u);
+            length += WriteStream.WriteStringLength((uint)PropertyID.NextScene, _nextScene);
             length += WriteStream.WriteCollectionLength((uint)PropertyID.Players, _players, context);
         } else {
             // Reliable properties
@@ -77,6 +97,8 @@ public partial class GameModel : IModel {
                 LocalCacheEntry entry = _cache.localCache;
                 if (entry.gameInitializedSet)
                     length += WriteStream.WriteVarint32Length((uint)PropertyID.GameInitialized, entry.gameInitialized ? 1u : 0u);
+                if (entry.nextSceneSet)
+                    length += WriteStream.WriteStringLength((uint)PropertyID.NextScene, entry.nextScene);
             }
             
             // Models
@@ -90,16 +112,19 @@ public partial class GameModel : IModel {
         if (context.fullModel) {
             // Write all properties
             stream.WriteVarint32((uint)PropertyID.GameInitialized, _gameInitialized ? 1u : 0u);
+            stream.WriteString((uint)PropertyID.NextScene, _nextScene);
             stream.WriteCollection((uint)PropertyID.Players, _players, context);
         } else {
             // Reliable properties
             if (context.reliableChannel) {
                 LocalCacheEntry entry = _cache.localCache;
-                if (entry.gameInitializedSet)
+                if (entry.gameInitializedSet || entry.nextSceneSet)
                     _cache.PushLocalCacheToInflight(context.updateID);
                 
                 if (entry.gameInitializedSet)
                     stream.WriteVarint32((uint)PropertyID.GameInitialized, entry.gameInitialized ? 1u : 0u);
+                if (entry.nextSceneSet)
+                    stream.WriteString((uint)PropertyID.NextScene, entry.nextScene);
             }
             
             // Models
@@ -109,6 +134,7 @@ public partial class GameModel : IModel {
     
     public void Read(ReadStream stream, StreamContext context) {
         bool gameInitializedExistsInChangeCache = _cache.ValueExistsInCache(entry => entry.gameInitializedSet);
+        bool nextSceneExistsInChangeCache = _cache.ValueExistsInCache(entry => entry.nextSceneSet);
         
         // Remove from in-flight
         if (context.deltaUpdatesOnly && context.reliableChannel)
@@ -125,6 +151,15 @@ public partial class GameModel : IModel {
                     
                     if (!gameInitializedExistsInChangeCache && _gameInitialized != previousValue)
                         FireGameInitializedDidChange(_gameInitialized);
+                    break;
+                }
+                case (uint)PropertyID.NextScene: {
+                    string previousValue = _nextScene;
+                    
+                    _nextScene = stream.ReadString();
+                    
+                    if (!nextSceneExistsInChangeCache && _nextScene != previousValue)
+                        FireNextSceneDidChange(_nextScene);
                     break;
                 }
                 case (uint)PropertyID.Players: {
